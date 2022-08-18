@@ -5,12 +5,16 @@ import store from './store'
 
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import 'normalize.css'
+import './assets/css/index.less'
+
 import registerGloab from '@/global'
 // import hYrequest from '@/service/indes'
 
 const app = createApp(App)
 // app.use(ElementPlus)
 registerGloab(app)
+
 app.use(store)
 app.use(router)
 app.mount('#app')
