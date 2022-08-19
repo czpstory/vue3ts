@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { setStore } from '@/store/index'
 
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -14,7 +15,7 @@ import registerGloab from '@/global'
 const app = createApp(App)
 // app.use(ElementPlus)
 registerGloab(app)
-
+setStore()
 app.use(store)
 app.use(router)
 app.mount('#app')

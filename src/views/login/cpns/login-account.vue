@@ -5,7 +5,7 @@
         <el-input v-model="account.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password"></el-input>
+        <el-input v-model="account.password" show-password></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -13,21 +13,32 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { useStore } from 'vuex'
 import { ElForm } from 'element-plus'
 import { rules } from '../config/rules'
+import czCache from '@/utils/cache'
 export default defineComponent({
   setup() {
     const account = reactive({
-      name: '',
-      password: ''
+      name: czCache.getCache('name') ?? '',
+      password: czCache.getCache('password') ?? ''
     })
+
+    const store = useStore()
 
     const formRef = ref<InstanceType<typeof ElForm>>()
 
-    const loginAccount = () => {
+    const loginAccount = (iskeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
-          console.log('立即登陆')
+          if (iskeepPassword) {
+            czCache.setCache('name', account.name)
+            czCache.setCache('password', account.password)
+          } else {
+            czCache.deleteCache('name')
+            czCache.deleteCache('password')
+          }
+          store.dispatch('loginStore/loginAction', { ...account })
         }
       })
     }

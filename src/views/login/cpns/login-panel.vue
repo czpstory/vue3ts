@@ -1,8 +1,8 @@
 <template>
   <div class="login-panel">
     <h1>后台管理系统</h1>
-    <el-tabs type="border-card" class="demo-tabs" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" class="demo-tabs" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><User /></el-icon>
@@ -12,14 +12,14 @@
         <login-account ref="accountRef"></login-account>
       </el-tab-pane>
 
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><Iphone /></el-icon>
             <span>手机登录</span>
           </span>
         </template>
-        <login-phone></login-phone>
+        <login-phone ref="phoneRef"></login-phone>
       </el-tab-pane>
     </el-tabs>
 
@@ -36,6 +36,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useStore } from 'vuex'
 import loginAccount from './login-account.vue'
 import loginPhone from './login-phone.vue'
 export default defineComponent({
@@ -46,13 +47,23 @@ export default defineComponent({
   setup() {
     const iskeepPassword = ref(false)
     const accountRef = ref<InstanceType<typeof loginAccount>>()
+    const phoneRef = ref<InstanceType<typeof loginPhone>>()
+    const currentTab = ref('account')
+    const store = useStore()
     const login = () => {
-      accountRef.value?.loginAccount()
+      //根据currentTan判断是账号登录还是手机登录
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAccount(iskeepPassword.value)
+      } else {
+        phoneRef.value?.loginPhone()
+      }
     }
     return {
       iskeepPassword,
       accountRef,
-      login
+      phoneRef,
+      login,
+      currentTab
     }
   }
 })

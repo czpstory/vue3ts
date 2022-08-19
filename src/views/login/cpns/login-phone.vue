@@ -28,9 +28,13 @@ export default defineComponent({
       phone: '',
       phoneRegister: ''
     })
+    const loginPhone = () => {
+      console.log('手机登录')
+    }
     return {
       accountPhone,
-      rules
+      rules,
+      loginPhone
     }
   }
 })
