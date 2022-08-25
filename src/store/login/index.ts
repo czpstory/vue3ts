@@ -44,6 +44,7 @@ const loginStore: Module<ILoginStore, IRootStore> = {
       const userInfo = userInfoResult.data
       czCache.setCache('userInfo', userInfo)
       commit('changeUserInfo', userInfo)
+      console.log(userInfo)
 
       //3.获取角色菜单树
       const userMenuResult = await userMenuRequest(id)
