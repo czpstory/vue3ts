@@ -9,7 +9,7 @@ import {
   userInfoRequestById,
   userMenuRequest
 } from '@/service/login'
-
+import { mapMenutoRoutes } from '@/utils/map-menu'
 const loginStore: Module<ILoginStore, IRootStore> = {
   namespaced: true,
   state() {
@@ -28,6 +28,13 @@ const loginStore: Module<ILoginStore, IRootStore> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus
+      const routes = mapMenutoRoutes(userMenus)
+      // console.log(routes)
+
+      // 动态添加路由
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {},
