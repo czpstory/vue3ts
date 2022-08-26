@@ -4,14 +4,20 @@
       <Fold v-if="isShowIcon" />
       <Expand v-else />
     </el-icon>
+    <div class="content">
+      <navinfo></navinfo>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-
+import navinfo from './nav-info.vue'
 export default defineComponent({
   emits: ['foldChange'],
+  components: {
+    navinfo
+  },
   setup(props, { emit }) {
     const isShowIcon = ref(true)
     const isHandleIcon = () => {
@@ -27,6 +33,17 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .content {
+    margin-left: 10px;
+    width: 100%;
+    cursor: pointer;
+  }
+}
 .isize {
   font-size: 30px;
   cursor: pointer;
