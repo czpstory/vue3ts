@@ -20,7 +20,6 @@ const system: Module<ISystemState, IRootStore> = {
       const { url, queryInfo } = payload
       const listResult = await getPageListData(url, queryInfo)
       const { list } = listResult.data
-      console.log(list)
 
       commit('changeUsersList', list)
     }

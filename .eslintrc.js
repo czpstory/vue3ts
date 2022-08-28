@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'vue/no-mutating-props': 'off',
     'vue/no-dupe-keys': 'off',
-    'vue/no-parsing-error': 'off'
+    'vue/no-parsing-error': 'off',
+    'vue/no-unused-vars': 'off'
   }
 }

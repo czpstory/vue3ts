@@ -63,8 +63,7 @@ export default defineComponent({
   props: {
     formData: {
       type: Object,
-      default: () => ({}),
-      required: true
+      default: () => ({})
     },
     formItems: {
       type: Array as PropType<IFormItem[]>,

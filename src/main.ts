@@ -13,6 +13,7 @@ import registerGloab from '@/global'
 // import hYrequest from '@/service/indes'
 
 const app = createApp(App)
+
 // app.use(ElementPlus)
 registerGloab(app)
 setStore()
