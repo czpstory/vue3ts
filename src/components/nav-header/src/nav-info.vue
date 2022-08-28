@@ -1,6 +1,8 @@
 <template>
   <div class="nav-info">
-    <div class="navleft">面包屑</div>
+    <div class="navleft">
+      <breadcrumb :breadcrumbs="breadcrumbs"></breadcrumb>
+    </div>
     <div class="navright">
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -24,11 +26,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
+import { defineComponent, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import breadcrumb from '@/base-ui/breadcrumb/src/breadcrumb.vue'
+import { pathMapBreadcrumbs } from '@/utils/map-menu'
 export default defineComponent({
+  components: {
+    breadcrumb
+  },
   setup() {
-    return {}
+    const store = useStore()
+    const route = useRoute()
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.loginStore.userMenus
+      const currentPath = route.path
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+    return { breadcrumbs }
   }
 })
 </script>

@@ -1,6 +1,6 @@
 import hYrequest from '../indes'
-import { IAccount, IPostInfo, IData } from './type'
-
+import { IAccount, IPostInfo } from './type'
+import { IData } from '../types'
 enum LoginAPI {
   AccountLogin = '/login',
   userInfoRequest = '/users/',

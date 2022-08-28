@@ -6,6 +6,7 @@
     </div>
 
     <el-menu
+      :default-active="activeIndex"
       :collapse="collapse"
       class="el-menu-vertical"
       background-color="#0c2135"
@@ -40,9 +41,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, computed, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store'
+import { mapRouterPath } from '@/utils/map-menu'
 export default defineComponent({
   props: {
     collapse: {
@@ -53,13 +55,18 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
+    const route = useRoute()
     const userMenus = computed(() => store.state.loginStore.userMenus)
+    const currentPath = route.path
+    const menu = mapRouterPath(userMenus.value, currentPath)
+    const activeIndex = ref(menu.id + '')
+
     const handleRouter = (url: any) => {
       router.push({
         path: url ?? '/not-fount'
       })
     }
-    return { userMenus, handleRouter }
+    return { userMenus, handleRouter, activeIndex }
   }
 })
 </script>
