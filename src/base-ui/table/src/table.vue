@@ -50,7 +50,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   props: {
     listData: {
-      type: Array,
+      type: Object,
       required: true
     },
     propList: {

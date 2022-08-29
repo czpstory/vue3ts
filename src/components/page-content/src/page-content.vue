@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <cz-table :listData="usersList" v-bind="ContentConfig">
+    <cz-table :listData="dataList" v-bind="ContentConfig">
       <!-- 顶部插槽 -->
       <template #headerHandler>
         <el-button type="primary">新增用户</el-button>
@@ -35,24 +35,29 @@ export default defineComponent({
     ContentConfig: {
       type: Object
     },
-    usersList: {
-      type: Object
+    pageName: {
+      type: String,
+      require: true
     }
   },
   components: {
     czTable
   },
-  setup() {
+  setup(props) {
     const store = useStore()
 
-    const usersList = computed(() => store.state.system.usersList)
+    // 从vuex中获取数据
+    const dataList = computed(() =>
+      store.getters['system/pageListData'](props.pageName)
+    )
 
+    const usersList = computed(() => store.state.system.usersList)
     store.dispatch('system/getPageListAction', {
-      url: '/users/list',
+      pageName: props.pageName,
       queryInfo: { offset: 0, size: 100 }
     })
 
-    return { usersList }
+    return { usersList, dataList }
   }
 })
 </script>
