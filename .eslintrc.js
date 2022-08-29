@@ -23,6 +23,7 @@ module.exports = {
     'vue/no-mutating-props': 'off',
     'vue/no-dupe-keys': 'off',
     'vue/no-parsing-error': 'off',
-    'vue/no-unused-vars': 'off'
+    'vue/no-unused-vars': 'off',
+
   }
 }

@@ -14,7 +14,7 @@ export const ContentConfig = {
       minWidth: '100',
       slotName: 'updateAt'
     },
-    { prop: 'handle', label: '操作', minWidth: '90', slotName: 'handle' }
+    { prop: 'handler', label: '操作', minWidth: '90', slotName: 'handler' }
   ],
 
   title: '角色列表'

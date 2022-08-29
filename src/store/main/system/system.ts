@@ -9,7 +9,9 @@ const system: Module<ISystemState, IRootStore> = {
       usersList: [],
       usersCount: 0,
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0
     }
   },
   mutations: {
@@ -24,6 +26,12 @@ const system: Module<ISystemState, IRootStore> = {
     },
     changeRoleCount(state, roleCount) {
       state.roleCount = roleCount
+    },
+    changeGoodsList(state, goodsList) {
+      state.goodsList = goodsList
+    },
+    changeGoodsCount(state, goodsCount) {
+      state.goodsCount = goodsCount
     }
   },
   getters: {
@@ -34,7 +42,7 @@ const system: Module<ISystemState, IRootStore> = {
     },
     pageListCount(state) {
       return (pageName: string) => {
-        return (state as any)[`${pageName}List`]
+        return (state as any)[`${pageName}Count`]
       }
     }
   },
@@ -47,6 +55,7 @@ const system: Module<ISystemState, IRootStore> = {
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
 
       const { list, totalCount } = pageResult.data
+
       const changePageName =
         pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
       commit(`change${changePageName}List`, list)

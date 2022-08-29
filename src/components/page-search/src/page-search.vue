@@ -6,8 +6,8 @@
       </template>
       <template #footer>
         <div class="foot-search">
-          <el-button>重置</el-button>
-          <el-button type="primary">搜索</el-button>
+          <el-button @click="handleResetClick">重置</el-button>
+          <el-button type="primary" @click="handleSerchClick">搜索</el-button>
         </div>
       </template>
     </Hyform>
@@ -28,16 +28,28 @@ export default defineComponent({
   components: {
     Hyform
   },
-  setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      realname: '',
-      cellphone: '',
-      enable: '',
-      createAt: ''
-    })
-    return { formData }
+
+  setup(props, { emit }) {
+    //  双向绑定的属性应该是由配置文件field来决定的
+    // 1.优化一
+    const formItems = props.searchFormConfig?.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ''
+    }
+    const formData = ref(formOriginData)
+
+    // 优化二 当用户点击重置按钮
+    const handleResetClick = () => {
+      formData.value = formOriginData
+      emit('resetBtnClick')
+    }
+
+    // 优化三 当用户点击搜索按钮
+    const handleSerchClick = () => {
+      emit('queryBtnClick', formData.value)
+    }
+    return { formData, handleResetClick, handleSerchClick }
   }
 })
 </script>
